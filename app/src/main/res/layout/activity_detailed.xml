@@ -17,8 +17,21 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_back_arrow"
         android:tint="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/starImage"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/starImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="25dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/backArrowImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backArrowImage"
+        tools:src="@drawable/ic_unfilled_star" />
 
 
     <ImageView
