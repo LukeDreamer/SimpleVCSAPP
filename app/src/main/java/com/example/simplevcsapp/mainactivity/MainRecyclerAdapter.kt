@@ -1,6 +1,5 @@
 package com.example.simplevcsapp.mainactivity
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.simplevcsapp.R
-import com.example.simplevcsapp.model.EmployeeData
-import java.util.*
+import com.example.simplevcsapp.data.DetailedEmployee
 
 
 class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val random = Random()
 
-    private var data = emptyList<EmployeeData>()
+    private var data = emptyList<DetailedEmployee>()
+
+    var itemClickListener: ((position: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,7 +35,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return data.size
     }
 
-    fun setMainRecyclerData(data: List<EmployeeData>) {
+    fun setMainRecyclerData(data: List<DetailedEmployee>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -50,6 +49,10 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private val cardView = itemView.findViewById<CardView>(R.id.cardView)
 
+        init {
+            itemView.setOnClickListener { itemClickListener?.invoke(adapterPosition) }
+        }
+
         fun bindData(position: Int) {
             nameTV.text = data[position].employeeName
             ageNTV.text = data[position].employeeAge
@@ -60,14 +63,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .circleCrop()
                 .into(avatar)
 
-            val color: Int = Color.argb(
-                255,
-                random.nextInt(100),
-                random.nextInt(100),
-                random.nextInt(100)
-            )
-
-            cardView.background.setTint(color)
+            cardView.background.setTint(data[position].backColor)
         }
     }
 }
