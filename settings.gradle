@@ -1,0 +1,2 @@
+rootProject.name='SimpleVCSAPP'
+include ':app'
